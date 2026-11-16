@@ -1,10 +1,31 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#EEEADF" },
+    { media: "(prefers-color-scheme: dark)", color: "#101816" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: "Colophon — Library circulation on a verifiable ledger",
   description:
     "A blockchain-based library management system: signed loans, Merkle-sealed blocks, proof-of-work, and a ledger anyone can verify.",
+  applicationName: "Colophon",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Colophon",
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export default function RootLayout({

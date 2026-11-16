@@ -52,6 +52,7 @@ html[data-theme="dark"] {
 
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -63,6 +64,8 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 body::after {
@@ -602,7 +605,17 @@ h2.title em {
 
 @media (max-width: 620px) {
   .dyn-pill-shell {
-    display: none;
+    display: inline-flex;
+    padding: 3px 8px;
+    gap: 6px;
+    height: 32px;
+  }
+  .dyn-pill-extra,
+  .dyn-pill-hint {
+    display: none !important;
+  }
+  .dyn-pill-summary {
+    font-size: 0.65rem;
   }
 }
 
@@ -2395,5 +2408,84 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;
+  }
+}
+
+/* ——— Mobile & PWA App Ergonomics ——— */
+button,
+a,
+.folio-swatch,
+.nav-ai-chip,
+.dyn-pill-shell {
+  touch-action: manipulation;
+}
+
+button:active,
+.pcard:active,
+.nav-ai-act-btn:active,
+.dyn-pill-shell:active,
+.folio-nav-btn:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
+}
+
+.shelf-track,
+.fade-scroll-wrap,
+.folio-viewport {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 640px) {
+  /* Prevent iOS Safari auto-zoom on input focus */
+  input,
+  select,
+  textarea,
+  .smooth-input,
+  .nav-ai-input {
+    font-size: 16px !important;
+  }
+
+  /* Full-width native bottom-sheet style for Guide AI drawer */
+  .nav-ai-root {
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .nav-ai-fab {
+    width: 100%;
+    justify-content: center;
+    height: 48px;
+    font-size: 0.88rem;
+  }
+
+  .nav-ai-panel {
+    width: 100%;
+    max-height: calc(82vh - env(safe-area-inset-bottom, 0px));
+    border-radius: 18px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  }
+
+  /* Touch-friendly header controls */
+  .theme-toggle-btn,
+  .vol-toggle-btn,
+  .m-menu-btn {
+    min-width: 42px;
+    min-height: 42px;
+  }
+
+  /* Spacing adjustments for comfortable mobile viewing */
+  .hero {
+    padding-top: calc(110px + env(safe-area-inset-top, 0px));
+  }
+
+  .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .shelf-track {
+    padding-bottom: 8px;
   }
 }
